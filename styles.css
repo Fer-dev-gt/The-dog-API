@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  text-align: center;
+  background-color: #13262f;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+  margin: 20px 0;
+  color: #DB3A34;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.randomPerritos {
+  width: 550px;
+  margin: 0 auto;
+  background-color: #f2f2f2;
+  box-shadow: 040px 60px -6px black;
+  border-radius: 10px;
+}
+
+.card__title {
+  font-size: 28px;
+  background-color: #DB3A34;
+  color: #fff;
+  height: 60px;
+  line-height: 60px;
+  letter-spacing: 3px;
+  border-radius: 10px 10px 0 0;
+}
+
+.card__img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 10px 10px;
+}
+
+#error {
+  color: white;
+}
+
+/*.card__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 120px;
+}*/
+
+#cambiarPerrito {
+  margin-top: 16px;
+  align-items: center;
+  background-color: rgb(228, 164, 94);
+  border: 5px solid rgb(249, 151, 66);
+  border-radius: 15px;
+  cursor: pointer;
+  font-family: 'Pacifico';
+  font-size: 2rem;
+  padding: 12px;
+  width: 200px;
+  height: auto;
+}
