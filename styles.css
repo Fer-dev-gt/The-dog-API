@@ -52,7 +52,7 @@ h1 {
   height: 120px;
 }*/
 
-#cambiarPerrito {
+.botonesPerritoRandom {
   margin-top: 16px;
   align-items: center;
   background-color: rgb(228, 164, 94);

@@ -66,8 +66,7 @@ async function loadFavouritePerritos(){                                         
       img.width = 450;
       btn.appendChild(btnText);
       btn.onclick = () => deleteFavouritePerrito(perrito.id);
-      article.appendChild(img);
-      article.appendChild(btn);
+      article.append(img, btn);
       section.append(article);
     });
   }
