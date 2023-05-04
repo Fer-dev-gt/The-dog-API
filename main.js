@@ -1,6 +1,7 @@
 const API_URL_RANDOM = `https://api.thedogapi.com/v1/images/search?limit=2`;                            // API de perritos, utlizo "Query Parameters" para filtrar y manejar la cantidad de objetos que solicito (?limit=3&page=2)
 const API_URL_FAVORITES = `https://api.thedogapi.com/v1/favourites`;         
 const API_URL_FAVORITES_DELETE = (id) => `https://api.thedogapi.com/v1/favourites/${id}`;         
+const API_URL_FAVORITES_UPLOAD = `https://api.thedogapi.com/v1/images/upload`; 
 
 const spanError = document.getElementById('error');
 const botonCambiarPerrito = document.querySelector('#cambiarPerrito');
@@ -105,7 +106,7 @@ async function saveFavouritePerrito(id) {                                       
 
 
 
-async function deleteFavouritePerrito(id) {
+async function deleteFavouritePerrito(id) {                                                   // Borra de la lista de Favoritos al objeto seleccionado con el parámetro "id"
   const response = await fetch(API_URL_FAVORITES_DELETE(id), {
     method: 'DELETE',
     headers: {
@@ -122,6 +123,33 @@ async function deleteFavouritePerrito(id) {
     console.log('Perrito ELIMINADO en favoritos');
     loadFavouritePerritos();
   }
+}
+
+async function uploadPerritoPhoto() {
+  const form = document.getElementById('uploadingForm');
+  const formData = new FormData(form);
+
+  console.log(formData.get('file'));
+
+  const response = await fetch(API_URL_FAVORITES_UPLOAD, {
+    method: 'POST',
+    headers: {
+      //'Content-Type': 'multipart/formData',
+      'X-API-KEY': 'live_n1ykKZKQyBVMv3bkbwcuZGnc9qtZUwneLCROUduvX4m7eJLgUhwetUf1M1HfDadJ',
+    },
+    body: formData,
+  })
+  const data = await response.json();
+
+  if(response.status !== 201) {
+    spanError.innerHTML = 'Hubo un error: ' + response.status;
+  } else {
+    console.log('Foto de Perrito Subida :)');
+    console.log({data});
+    console.log(data.url);
+    saveFavouritePerrito(data.id);
+  }
+
 }
 
 
