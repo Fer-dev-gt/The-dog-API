@@ -125,29 +125,29 @@ async function deleteFavouritePerrito(id) {                                     
   }
 }
 
-async function uploadPerritoPhoto() {
-  const form = document.getElementById('uploadingForm');
-  const formData = new FormData(form);
+async function uploadPerritoPhoto() {                                                         // Guarda la información de  un DataForm en donde subimos una foto de nuestra computadora para despues usando fetch() la subimos a nuestra lista de favoritos y la subimos al API
+  const form = document.getElementById('uploadingForm');                                      // Aqui se guardara toda la información que esta en el nodo de HTML form y la información que tiene adentro
+  const formData = new FormData(form);                                                        // Creamos una nueva instancia del Objeto "FormData" le mandamos un parametro el cual va a ser nuestro formulario que esta guardado en la variable "form", todo eso lo guardamos en la variable "formData"
 
-  console.log(formData.get('file'));
+  console.log(formData.get('file'));                                                          // Mostramos la información que guarda nuestro formulario en la variable "formData" usando de parametro el "file" que es el tipo de contenido, en caso haya seleccionado un archivo como una foto o video, esta variable tendrá la información de dicho archivo 
 
-  const response = await fetch(API_URL_FAVORITES_UPLOAD, {
+  const response = await fetch(API_URL_FAVORITES_UPLOAD, {                                    // Guardo en la variable "response" el resultado de un fetch() en donde hago la solicitud para subir el archivo, en este caso una foto a la lista de favoritos, utilizo otra URL con los endpoints indicados para subir la foto
     method: 'POST',
     headers: {
-      //'Content-Type': 'multipart/formData',
-      'X-API-KEY': 'live_n1ykKZKQyBVMv3bkbwcuZGnc9qtZUwneLCROUduvX4m7eJLgUhwetUf1M1HfDadJ',
-    },
+      //'Content-Type': 'multipart/formData',                                                 // No tenemos que mandar el 'Content-Type' en los headers ya que la usar FormData este objeto ya nos agrega la información necesaria de los headers, incluyendo boundary=----
+      'X-API-KEY': 'live_n1ykKZKQyBVMv3bkbwcuZGnc9qtZUwneLCROUduvX4m7eJLgUhwetUf1M1HfDadJ',   // La API nos solicita que enviemos nuestra API Key
+    }, 
     body: formData,
   })
-  const data = await response.json();
+  const data = await response.json();                                                         // Convertimos la response a formato JSON
 
-  if(response.status !== 201) {
+  if(response.status !== 201) {                                                               // Si el HTTP nos responde con un codigo distinto al 201 (objeto creado) muestramos el código que nos salio
     spanError.innerHTML = 'Hubo un error: ' + response.status;
   } else {
     console.log('Foto de Perrito Subida :)');
-    console.log({data});
-    console.log(data.url);
-    saveFavouritePerrito(data.id);
+    console.log({data});                                                                      // Imprimo la el objeto completo de mi respuesta en formato JSON
+    console.log(data.url);                                                                    // Imprimo la url de mi objeto
+    saveFavouritePerrito(data.id);                                                            // Invoco la función para guardar la imagen/archivo que escogí
   }
 
 }
