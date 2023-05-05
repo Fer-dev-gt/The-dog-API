@@ -1,3 +1,8 @@
+const api = axios.create({                                                  // Creo una nueva instancia de Axios con el método ".create()" y adentro escribo las instrucciones que quiero que se aplique a mis solicitudes
+  baseURL: 'https://api.thedogapi.com/v1/'                                  // Escribo mi url Base para que sea mas facil inplementarla en mis solicitudes
+});
+api.defaults.headers.common['X-API-KEY'] = 'live_n1ykKZKQyBVMv3bkbwcuZGnc9qtZUwneLCROUduvX4m7eJLgUhwetUf1M1HfDadJ';  // Tambien puedo agregar información adicional a mi Objeto de Axios de arriba usando el método (.defaults.headers.common['x-api-key'])
+
 const API_URL_RANDOM = `https://api.thedogapi.com/v1/images/search?limit=2`;                            // API de perritos, utlizo "Query Parameters" para filtrar y manejar la cantidad de objetos que solicito (?limit=3&page=2)
 const API_URL_FAVORITES = `https://api.thedogapi.com/v1/favourites`;         
 const API_URL_FAVORITES_DELETE = (id) => `https://api.thedogapi.com/v1/favourites/${id}`;         
@@ -80,6 +85,7 @@ async function loadFavouritePerritos(){                                         
 
 
 async function saveFavouritePerrito(id) {                                                   // Guarda un objeto de un perrito en la lista de Favorites usando el método "POST"
+  /*    Lo comente para hacer la misma petición pero usando AXIOS
   const response = await fetch(API_URL_FAVORITES, {                                         // Vamos a enviar un Objeto en el segundo parámetro con la información de lo que vamos a subir y el formato indicado, esto sucede cada vez que hacemos una solicitud que no sea la de por defecto "GET"
     method: 'POST',
     headers: {
@@ -91,12 +97,17 @@ async function saveFavouritePerrito(id) {                                       
     }),
   });
   const data = await response.json();
+  */
 
+  const { data, status } = await api.post('/favourites', {                                  // En vez de enviar el verbo POST en los headers, con Axios puedo usarlo con el método ".post()" y como parametro solo completo el endpoint a mi url Baso "/favourites", y el segundo parámetro enviamos un objeto body con la info de lo que queremos enviar
+    image_id: id,                                                                           // Con Axios ya no tenemos que hacer el "JSON.stringify" este ya lo hace por nosotros
+  });                                                 
   console.log('Save');
-  console.log(response);
+  console.log(status);
 
-  if(response.status !== 200) {                                                             // Verificadmos que el "response.status" es cualquier cosa distinta a 200, si no es 200 muestro un mensaje de error
-    spanError.innerText = "Hubo un error: " + response.status + data.message;
+  //if(response.status !== 200) {                                                             // Verificadmos que el "response.status" es cualquier cosa distinta a 200, si no es 200 muestro un mensaje de error
+  if(status !== 200) {
+    spanError.innerText = "Hubo un error: " + status;
     console.log(data);
   } else {
     console.log('Perrito guardado en favoritos');
@@ -139,6 +150,7 @@ async function uploadPerritoPhoto() {                                           
     }, 
     body: formData,
   })
+
   const data = await response.json();                                                         // Convertimos la response a formato JSON
 
   if(response.status !== 201) {                                                               // Si el HTTP nos responde con un codigo distinto al 201 (objeto creado) muestramos el código que nos salio
