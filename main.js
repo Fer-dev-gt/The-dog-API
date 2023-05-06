@@ -1,9 +1,9 @@
 const api = axios.create({                                                  // Creo una nueva instancia de Axios con el método ".create()" y adentro escribo las instrucciones que quiero que se aplique a mis solicitudes
   baseURL: 'https://api.thedogapi.com/v1/'                                  // Escribo mi url Base para que sea mas facil inplementarla en mis solicitudes
 });
-api.defaults.headers.common['X-API-KEY'] = 'live_n1ykKZKQyBVMv3bkbwcuZGnc9qtZUwneLCROUduvX4m7eJLgUhwetUf1M1HfDadJ';  // Tambien puedo agregar información adicional a mi Objeto de Axios de arriba usando el método (.defaults.headers.common['x-api-key'])
+api.defaults.headers.common['X-API-KEY'] = 'live_n1ykKZKQyBVMv3bkbwcuZGnc9qtZUwneLCROUduvX4m7eJLgUhwetUf1M1HfDadJ';   // Tambien puedo agregar información adicional a mi Objeto de Axios de arriba usando el método (.defaults.headers.common['x-api-key'])
 
-const API_URL_RANDOM = `https://api.thedogapi.com/v1/images/search?limit=2`;                            // API de perritos, utlizo "Query Parameters" para filtrar y manejar la cantidad de objetos que solicito (?limit=3&page=2)
+const API_URL_RANDOM = `https://api.thedogapi.com/v1/images/search?limit=2`;                                          // API de perritos, utlizo "Query Parameters" para filtrar y manejar la cantidad de objetos que solicito (?limit=3&page=2)
 const API_URL_FAVORITES = `https://api.thedogapi.com/v1/favourites`;         
 const API_URL_FAVORITES_DELETE = (id) => `https://api.thedogapi.com/v1/favourites/${id}`;         
 const API_URL_FAVORITES_UPLOAD = `https://api.thedogapi.com/v1/images/upload`; 
@@ -39,8 +39,15 @@ async function loadRandomPerritos() {                                           
 
   const title = document.getElementById("titlePerrito");
 
-  try { title.innerText = data[0].breeds[0].name;
-  } catch { console.log("Raza desconocida"); } 
+  try { 
+    const API_URL_BREEDS = 'https://api.thedogapi.com/v1/breeds?limit=10'
+    const responseBreeds = await fetch(API_URL_BREEDS);
+    const dataBreeds = await responseBreeds.json();
+    title.innerText = dataBreeds[1].name;
+    console.log(dataBreeds);
+  } catch { 
+    console.log("Raza desconocida"); 
+  } 
 }
 
 
@@ -61,10 +68,6 @@ async function loadFavouritePerritos(){                                         
   } else {
     const section = document.getElementById('favoritePerritos');
     section.innerHTML = "";
-    const h1 = document.createElement('h1');
-    const h1Text = document.createTextNode('Perris Favoritos');
-    h1.appendChild(h1Text);
-    section.appendChild(h1);
 
     data.forEach(perrito => {
       const article = document.createElement('article');

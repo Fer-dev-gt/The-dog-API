@@ -18,10 +18,11 @@ h1 {
 }
 
 .randomPerritos {
-  width: 550px;
+  
+  width: 600px;
   margin: 0 auto;
   background-color: #f2f2f2;
-  box-shadow: 040px 60px -6px black;
+  box-shadow: 0 40px 60px -6px black;
   border-radius: 10px;
 }
 
@@ -39,6 +40,26 @@ h1 {
   width: 100%;
   height: 100%;
   border-radius: 0 0 10px 10px;
+}
+
+section.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 1rem;
+}
+
+section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+section img {
+  object-fit: cover;
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
 }
 
 #error {
