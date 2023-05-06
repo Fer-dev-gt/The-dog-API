@@ -14,8 +14,11 @@ h1 {
   font-weight: 800;
   text-transform: uppercase;
 }
+h2 {
+  padding: 12px 0px;
+}
 .randomPerritos {
-  width: 600px;
+  width: 800px;
   margin: 0 auto;
   background-color: rgb(249, 151, 66);
   box-shadow: 0 40px 60px -6px black;
@@ -41,19 +44,19 @@ h1 {
 }
 section.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 1rem;
 }
 section {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 0.7rem;
 }
 section img {
   object-fit: cover;
   width: 100%;
-  height: 200px;
+  height: 300px;
   border-radius: 5px;
 }
 #error {
@@ -82,21 +85,19 @@ section img {
 }
 .card__img {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
+  height: 300px;
+  border-radius: 0 0 10px 10px;
   margin-bottom: 10px;
 }
+
 .card__info {
-  margin-top: 10px;
-}
-/*.card__info {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   height: 120px;
-}*/
+}
 .botonesPerritoRandom {
-  margin-top: 20px;
+  margin: 36px;
   align-items: center;
   background-color: rgb(228, 164, 94);
   border: 5px solid rgb(249, 151, 66);

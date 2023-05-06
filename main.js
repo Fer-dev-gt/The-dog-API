@@ -1,12 +1,12 @@
-const api = axios.create({                                                  // Creo una nueva instancia de Axios con el método ".create()" y adentro escribo las instrucciones que quiero que se aplique a mis solicitudes
-  baseURL: 'https://api.thedogapi.com/v1/'                                  // Escribo mi url Base para que sea mas facil inplementarla en mis solicitudes
+const api = axios.create({                                                                                            // Creo una nueva instancia de Axios con el método ".create()" y adentro escribo las instrucciones que quiero que se aplique a mis solicitudes
+  baseURL: 'https://api.thedogapi.com/v1/'                                                                            // Escribo mi url Base para que sea mas facil inplementarla en mis solicitudes
 });
 api.defaults.headers.common['X-API-KEY'] = 'live_n1ykKZKQyBVMv3bkbwcuZGnc9qtZUwneLCROUduvX4m7eJLgUhwetUf1M1HfDadJ';   // Tambien puedo agregar información adicional a mi Objeto de Axios de arriba usando el método (.defaults.headers.common['x-api-key'])
 
-const API_URL_RANDOM = `https://api.thedogapi.com/v1/images/search?limit=2`;                                          // API de perritos, utlizo "Query Parameters" para filtrar y manejar la cantidad de objetos que solicito (?limit=3&page=2)
-const API_URL_FAVORITES = `https://api.thedogapi.com/v1/favourites`;         
-const API_URL_FAVORITES_DELETE = (id) => `https://api.thedogapi.com/v1/favourites/${id}`;         
+const API_URL_RANDOM = `https://api.thedogapi.com/v1/breeds?`;                                          // API de perritos, utlizo "Query Parameters" para filtrar y manejar la cantidad de objetos que solicito (?limit=3&page=2)
+const API_URL_FAVORITES = `https://api.thedogapi.com/v1/favourites`;                
 const API_URL_FAVORITES_UPLOAD = `https://api.thedogapi.com/v1/images/upload`; 
+const API_URL_FAVORITES_DELETE = (id) => `https://api.thedogapi.com/v1/favourites/${id}`;  
 
 const spanError = document.getElementById('error');
 const botonCambiarPerrito = document.querySelector('#cambiarPerrito');
@@ -15,39 +15,60 @@ botonCambiarPerrito.onclick = loadRandomPerritos;
 loadRandomPerritos();
 loadFavouritePerritos();
 
+function generateRandomNumber() {                                                             // Genera un número aleatoreo del 0 al 171 relacionado a la cantidad de objetos de perrito con la información de la raza e imagen
+  return Math.floor(Math.random() * 172) + 1;
+}
 
 async function loadRandomPerritos() {                                                         // Muestra fotos de perritos al azar usando Async/Await y verifanco que el HTTP code sea 200
   const response = await fetch(API_URL_RANDOM);
   const data = await response.json();                                                         // El método ".json()" tambien es asincrono
+  console.log(`🟡Lista de perritos Random`);
+  console.dir(data)
 
-  console.log('🟡Random');
-  console.log(data)
+  const perritoRandom1id = generateRandomNumber(); 
+  const perritoRandom2id = generateRandomNumber(); 
+  console.log(`Id del primer perrito: ${perritoRandom1id}`);
+  console.log(`Id del segundo perrito: ${perritoRandom2id}`);
 
   if(response.status !== 200) {                                                               // Verificadmos que el "response.status" es cualquier cosa distinta a 200, si no es 200 muestro un mensaje de error
     spanError.innerHTML = "Hubo un error: " + response.status + response.text;
   } else {
-    const imgPerrito1 = document.querySelector('#perroAleatorio1');
-    const imgPerrito2 = document.querySelector('#perroAleatorio2');
-    const btn1 = document.querySelector('#btn1')
-    const btn2 = document.querySelector('#btn2')
-    imgPerrito1.src = data[0].url;
-    imgPerrito2.src = data[1].url;
+    try {
+      const imgPerrito1 = document.querySelector('#perroAleatorio1');
+      const imgPerrito2 = document.querySelector('#perroAleatorio2');
+      const btn1 = document.querySelector('#btn1')
+      const btn2 = document.querySelector('#btn2')
+      imgPerrito1.src = data[perritoRandom1id].image.url;
+      imgPerrito2.src = data[perritoRandom2id].image.url;
+  
+      btn1.onclick = () => saveFavouritePerrito(data[perritoRandom1id].image.id);
+      btn2.onclick = () => saveFavouritePerrito(data[perritoRandom2id].image.id);
+  
+      const title1 = document.getElementById("titlePerrito1");
+      const title2 = document.getElementById("titlePerrito2");
+  
+      title1.innerText = data[perritoRandom1id].name;
+      title2.innerText = data[perritoRandom2id].name;
+  
+      const weight1 = document.getElementById('weight1');
+      const height1 = document.getElementById('height1');
+      const lifespan1 = document.getElementById('lifespan1');
+  
+      const weight2 = document.getElementById('weight2');
+      const height2 = document.getElementById('height2');
+      const lifespan2 = document.getElementById('lifespan2');
+  
+      weight1.innerText = `Weight: ${data[perritoRandom1id].weight.metric} lbs.`
+      height1.innerText = `Height: ${data[perritoRandom1id].height.metric} cm.`
+      lifespan1.innerText = `Lifespan: ${data[perritoRandom1id].life_span}.`
 
-    btn1.onclick = () => saveFavouritePerrito(data[0].id);
-    btn2.onclick = () => saveFavouritePerrito(data[1].id);
-  }
-
-  const title = document.getElementById("titlePerrito");
-
-  try { 
-    const API_URL_BREEDS = 'https://api.thedogapi.com/v1/breeds?limit=10'
-    const responseBreeds = await fetch(API_URL_BREEDS);
-    const dataBreeds = await responseBreeds.json();
-    title.innerText = dataBreeds[1].name;
-    console.log(dataBreeds);
-  } catch { 
-    console.log("Raza desconocida"); 
-  } 
+      weight2.innerText = `Weight: ${data[perritoRandom2id].weight.metric} lbs.`
+      height2.innerText = `Height: ${data[perritoRandom2id].height.metric} cm.`
+      lifespan2.innerText = `Lifespan: ${data[perritoRandom2id].life_span}.`
+    } catch { 
+      console.log("Raza desconocida"); 
+    } 
+  }  
 }
 
 
@@ -60,8 +81,8 @@ async function loadFavouritePerritos(){                                         
     },
   });
   const data = await response.json();
-  console.log('🩷Favoritos');
-  console.log(data);
+  console.log('🩷Lista de perritos Favoritos');
+  console.dir(data);
 
   if(response.status !== 200) {                                                             // Verificadmos que el "response.status" es cualquier cosa distinta a 200, si no es 200 muestro un mensaje de error
     spanError.innerHTML = "Hubo un error: " + response.status + response.text;              //+ data.message;
