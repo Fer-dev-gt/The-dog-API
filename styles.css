@@ -3,29 +3,28 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   text-align: center;
   background-color: #13262f;
   font-family: 'Montserrat', sans-serif;
 }
-
 h1 {
   margin: 20px 0;
   color: #DB3A34;
   font-weight: 800;
   text-transform: uppercase;
 }
-
 .randomPerritos {
-  
   width: 600px;
   margin: 0 auto;
-  background-color: #f2f2f2;
+  background-color: rgb(249, 151, 66);
   box-shadow: 0 40px 60px -6px black;
   border-radius: 10px;
 }
-
+.fichasPerrisRandom {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
 .card__title {
   font-size: 28px;
   background-color: #DB3A34;
@@ -35,52 +34,74 @@ h1 {
   letter-spacing: 3px;
   border-radius: 10px 10px 0 0;
 }
-
 .card__img {
   width: 100%;
   height: 100%;
   border-radius: 0 0 10px 10px;
 }
-
 section.grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 1rem;
 }
-
 section {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
 }
-
 section img {
   object-fit: cover;
   width: 100%;
   height: 200px;
   border-radius: 5px;
 }
-
 #error {
   color: white;
 }
-
+.fichasPerrisRandom {
+  display: flex;
+  justify-content: space-between;
+}
+.card {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  width: calc(50% - 10px); /* Adjust the width as needed */
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+.card__title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.card__img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.card__info {
+  margin-top: 10px;
+}
 /*.card__info {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   height: 120px;
 }*/
-
 .botonesPerritoRandom {
-  margin-top: 16px;
+  margin-top: 20px;
   align-items: center;
   background-color: rgb(228, 164, 94);
   border: 5px solid rgb(249, 151, 66);
   border-radius: 15px;
   cursor: pointer;
-  font-family: 'Pacifico';
   font-size: 2rem;
   padding: 12px;
   width: 200px;
