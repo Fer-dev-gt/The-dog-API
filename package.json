@@ -4,7 +4,7 @@
   "description": "Here I showcase some examples of HTTP Requests using REST APIs and Asynchronous functions. Check out the results, enjoy 🐶  https://fer-dev-gt.github.io/The-dog-API/",
   "main": "main.js",
   "scripts": {
-    "deploy": "gh-pages -d src"
+    "publish": "gh-pages -d src"
   },
   "repository": {
     "type": "git",
@@ -16,8 +16,9 @@
   "bugs": {
     "url": "https://github.com/Fer-dev-gt/The-dog-API/issues"
   },
-  "homepage": "https://github.com/Fer-dev-gt/The-dog-API#readme",
+  "homepage": "https://Fer-dev-gt.github.io/The-dog-API",
   "dependencies": {
     "gh-pages": "^5.0.0"
   }
+  
 }
