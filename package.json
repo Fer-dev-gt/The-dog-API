@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Fer-dev-gt/The-dog-API/issues"
   },
-  "homepage": "https://github.com/Fer-dev-gt/The-dog-API#readme"
+  "homepage": "https://github.com/Fer-dev-gt/The-dog-API#readme",
+  "dependencies": {
+    "gh-pages": "^5.0.0"
+  }
 }
