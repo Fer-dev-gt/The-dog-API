@@ -67,6 +67,7 @@ section img {
   justify-content: space-between;
 }
 .card {
+  cursor: pointer;
   background-color: #f9f9f9;
   border-radius: 8px;
   padding: 20px;
@@ -89,7 +90,13 @@ section img {
   border-radius: 0 0 10px 10px;
   margin-bottom: 10px;
 }
-
+#buttonCard {
+  background-color: green;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+}
 .card__info {
   display: flex;
   flex-direction: column;
@@ -99,12 +106,65 @@ section img {
 .botonesPerritoRandom {
   margin: 36px;
   align-items: center;
-  background-color: rgb(228, 164, 94);
-  border: 5px solid rgb(249, 151, 66);
+  background-color:  rgb(249, 151, 66);
   border-radius: 15px;
   cursor: pointer;
   font-size: 2rem;
   padding: 12px;
   width: 200px;
   height: auto;
+}
+input {
+  writing-mode: horizontal-tb !important;
+  color: black;
+  cursor: pointer;
+  background-color: rgb(249, 151, 66);
+  padding: 6px 16px;
+  border-width: 2px;
+  border-style: inset;
+  border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+  margin-right: 16px;
+}
+::-webkit-file-upload-button {
+  width: fit-content;
+  border: none;
+  background: #DB3A34;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+#uploadPerrito {
+  margin-bottom: 20px;
+}
+#uploadingForm > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+#imagePreview {
+  max-width: 300px;
+}
+button[type="button"] {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+#uploadingForm button[type="button"] {
+  background-color: green;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+}
+#imagePreview {
+  display: none;
 }

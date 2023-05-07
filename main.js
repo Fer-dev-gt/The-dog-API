@@ -3,7 +3,7 @@ const api = axios.create({                                                      
 });
 api.defaults.headers.common['X-API-KEY'] = 'live_n1ykKZKQyBVMv3bkbwcuZGnc9qtZUwneLCROUduvX4m7eJLgUhwetUf1M1HfDadJ';   // Tambien puedo agregar información adicional a mi Objeto de Axios de arriba usando el método (.defaults.headers.common['x-api-key'])
 
-const API_URL_RANDOM = `https://api.thedogapi.com/v1/breeds?`;                                          // API de perritos, utlizo "Query Parameters" para filtrar y manejar la cantidad de objetos que solicito (?limit=3&page=2)
+const API_URL_RANDOM = `https://api.thedogapi.com/v1/breeds?`;                                                        // API de perritos, utlizo "Query Parameters" para filtrar y manejar la cantidad de objetos que solicito (?limit=3&page=2)
 const API_URL_FAVORITES = `https://api.thedogapi.com/v1/favourites`;                
 const API_URL_FAVORITES_UPLOAD = `https://api.thedogapi.com/v1/images/upload`; 
 const API_URL_FAVORITES_DELETE = (id) => `https://api.thedogapi.com/v1/favourites/${id}`;  
@@ -108,40 +108,42 @@ async function loadFavouritePerritos(){                                         
 
 
 
-async function saveFavouritePerrito(id) {                                                   // Guarda un objeto de un perrito en la lista de Favorites usando el método "POST"
+async function saveFavouritePerrito(id) {                                                             // Guarda un objeto de un perrito en la lista de Favorites usando el método "POST"
   /*    Lo comente para hacer la misma petición pero usando AXIOS
-  const response = await fetch(API_URL_FAVORITES, {                                         // Vamos a enviar un Objeto en el segundo parámetro con la información de lo que vamos a subir y el formato indicado, esto sucede cada vez que hacemos una solicitud que no sea la de por defecto "GET"
+  const response = await fetch(API_URL_FAVORITES, {                                                   // Vamos a enviar un Objeto en el segundo parámetro con la información de lo que vamos a subir y el formato indicado, esto sucede cada vez que hacemos una solicitud que no sea la de por defecto "GET"
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'X-API-KEY': 'live_n1ykKZKQyBVMv3bkbwcuZGnc9qtZUwneLCROUduvX4m7eJLgUhwetUf1M1HfDadJ'
     },
-    body: JSON.stringify({                                                                  // En el "body" mandamos precisamente la información del dato que vamos a guardar y le aplicamos el método "stringify"
+    body: JSON.stringify({                                                                            // En el "body" mandamos precisamente la información del dato que vamos a guardar y le aplicamos el método "stringify"
       image_id: id
     }),
   });
   const data = await response.json();
   */
 
-  const { data, status } = await api.post('/favourites', {                                  // En vez de enviar el verbo POST en los headers, con Axios puedo usarlo con el método ".post()" y como parametro solo completo el endpoint a mi url Baso "/favourites", y el segundo parámetro enviamos un objeto body con la info de lo que queremos enviar
-    image_id: id,                                                                           // Con Axios ya no tenemos que hacer el "JSON.stringify" este ya lo hace por nosotros
+  const { data, status } = await api.post('/favourites', {                                            // En vez de enviar el verbo POST en los headers, con Axios puedo usarlo con el método ".post()" y como parametro solo completo el endpoint a mi url Baso "/favourites", y el segundo parámetro enviamos un objeto body con la info de lo que queremos enviar
+    image_id: id,                                                                                     // Con Axios ya no tenemos que hacer el "JSON.stringify" este ya lo hace por nosotros
   });                                                 
   console.log('Save');
   console.log(status);
 
-  //if(response.status !== 200) {                                                             // Verificadmos que el "response.status" es cualquier cosa distinta a 200, si no es 200 muestro un mensaje de error
+  //if(response.status !== 200) {                                                                     // Verificadmos que el "response.status" es cualquier cosa distinta a 200, si no es 200 muestro un mensaje de error
   if(status !== 200) {
     spanError.innerText = "Hubo un error: " + status;
     console.log(data);
   } else {
     console.log('Perrito guardado en favoritos');
+    const previewImage = document.querySelector('#imagePreview');
+    previewImage.style.display = 'none';
     loadFavouritePerritos();
   }
 }
 
 
 
-async function deleteFavouritePerrito(id) {                                                   // Borra de la lista de Favoritos al objeto seleccionado con el parámetro "id"
+async function deleteFavouritePerrito(id) {                                                         // Borra de la lista de Favoritos al objeto seleccionado con el parámetro "id"
   const response = await fetch(API_URL_FAVORITES_DELETE(id), {
     method: 'DELETE',
     headers: {
@@ -150,7 +152,7 @@ async function deleteFavouritePerrito(id) {                                     
   });
   //const data = await response.json();
 
-  if(response.status !== 200) {                                                             // Verificadmos que el "response.status" es cualquier cosa distinta a 200, si no es 200 muestro un mensaje de error
+  if(response.status !== 200) {                                                                     // Verificadmos que el "response.status" es cualquier cosa distinta a 200, si no es 200 muestro un mensaje de error
     console.log("noooooooo");
     spanError.innerText = "Hubo un error: " + response.status + data.message;
     console.log(data);
@@ -185,7 +187,20 @@ async function uploadPerritoPhoto() {                                           
     console.log(data.url);                                                                    // Imprimo la url de mi objeto
     saveFavouritePerrito(data.id);                                                            // Invoco la función para guardar la imagen/archivo que escogí
   }
-
 }
 
 
+
+function previewImage() {
+  const previewImage = document.querySelector('#imagePreview');
+  previewImage.style.display = 'initial';
+  const reader = new FileReader();
+  const filePreview = document.querySelector('#file').files[0];
+  reader.addEventListener('load', () => {
+    previewImage.src = reader.result;
+  }, false);
+
+  if(filePreview) {
+    reader.readAsDataURL(filePreview)
+  }
+}

@@ -19,7 +19,7 @@
         <p class="card__title" id="titlePerrito1"></p>
         <article>
           <img class="card__img" alt="Foto perrito Aleatorio" id="perroAleatorio1" />
-          <button id="btn1">
+          <button id="btn1" class="buttonCard">
             Guardar perrito en Favoritos
           </button>
         </article>
@@ -34,7 +34,7 @@
         <p class="card__title" id="titlePerrito2"></p>
         <article>
           <img class="card__img" alt="Foto perrito Aleatorio" id="perroAleatorio2" />
-          <button id="btn2">
+          <button id="btn2" class="buttonCard">
             Guardar perrito en Favoritos
           </button>
         </article>
@@ -54,8 +54,11 @@
   <section id="uploadPerrito">
     <h1>Sube la foto de tu Perrito</h1>
     <form id="uploadingForm">
-      <input id="file" type="file" name="file">
-      <button type="button" onclick="uploadPerritoPhoto()"> Subir foto de Perrito</button>
+      <div>
+        <input id="file" type="file" name="file" onchange="previewImage()">
+        <img id="imagePreview" alt="Image preview">
+      </div>
+      <button type="button" onclick="uploadPerritoPhoto()">Subir foto de Perrito</button>
     </form>
   </section>
   <h1>Perritos Favoritos</h1>
