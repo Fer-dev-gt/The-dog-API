@@ -1,0 +1,20 @@
+{
+  "name": "the-dog-api",
+  "version": "1.0.0",
+  "description": "Here I showcase some examples of HTTP Requests using REST APIs and Asynchronous functions. Check out the results, enjoy 🐶  https://fer-dev-gt.github.io/The-dog-API/",
+  "main": "main.js",
+  "scripts": {
+    "deploy": "gh-pages -d src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fer-dev-gt/The-dog-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fer-dev-gt/The-dog-API/issues"
+  },
+  "homepage": "https://github.com/Fer-dev-gt/The-dog-API#readme"
+}
