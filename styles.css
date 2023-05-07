@@ -221,3 +221,65 @@ button[type="button"] {
   animation: pulse 0.5s forwards;
   transition: all 0.3s ease-in-out;
 }
+
+.footer {
+  background-color: hsl( 242 , 14%, 10%);
+  padding: 40px 0;
+  margin-top: 100px;
+}
+
+.footer__bg {
+  background-color:hsl( 242 , 14%, 10%);
+  padding: 20px 36px;
+  color: #fff;
+}
+
+.footer__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.footer__title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.footer__subtitle {
+  font-size: 14px;
+  color: #aaa;
+}
+
+.footer__links {
+  list-style: none;
+  display: flex;
+  margin-left: 30px;
+  padding: 0;
+}
+
+.footer__links li:not(:last-child) {
+  margin-right: 20px;
+}
+
+.footer__link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+}
+
+.footer__socials {
+  display: flex;
+  align-items: center;
+}
+
+.footer__social:not(:last-child) {
+  margin-right: 10px;
+}
+
+.footer__copy {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #aaa;
+}
