@@ -71,8 +71,6 @@ async function loadRandomPerritos() {                                           
   }  
 }
 
-
-
 async function loadFavouritePerritos(){                                                     // Carga foto de perros favoritos
   const response = await fetch(API_URL_FAVORITES, {
     method: 'GET',
@@ -94,12 +92,13 @@ async function loadFavouritePerritos(){                                         
       const article = document.createElement('article');
       const img = document.createElement('img');
       const btn = document.createElement('button');
-      const btnText = document.createTextNode('Sacar al perris de favoritos');
 
       img.src = perrito.image.url
       img.width = 450;
-      btn.appendChild(btnText);
-      btn.onclick = () => deleteFavouritePerrito(perrito.id);
+      btn.onclick = () => { 
+        deleteFavouritePerrito(perrito.id);
+        btn.classList.toggle("active");
+      }
       article.append(img, btn);
       section.append(article);
     });
@@ -140,8 +139,6 @@ async function saveFavouritePerrito(id) {                                       
     loadFavouritePerritos();
   }
 }
-
-
 
 async function deleteFavouritePerrito(id) {                                                         // Borra de la lista de Favoritos al objeto seleccionado con el parámetro "id"
   const response = await fetch(API_URL_FAVORITES_DELETE(id), {
@@ -188,8 +185,6 @@ async function uploadPerritoPhoto() {                                           
     saveFavouritePerrito(data.id);                                                            // Invoco la función para guardar la imagen/archivo que escogí
   }
 }
-
-
 
 function previewImage() {
   const previewImage = document.querySelector('#imagePreview');
